@@ -5,11 +5,10 @@ export default defineManifest({
   manifest_version: 3,
   name: "Gemini Archive",
   description:
-    "Archive and declutter your Google Gemini chats without deleting them permanently.",
+    "Archive and declutter your Google Gemini conversations without deleting them permanently.",
   version: pkg.version,
   icons: {
     "16": "public/icon16.png",
-    "32": "public/icon32.png",
     "48": "public/icon48.png",
     "128": "public/icon128.png",
   },
@@ -27,7 +26,4 @@ export default defineManifest({
     },
   ],
   host_permissions: ["https://gemini.google.com/*"],
-  // side_panel: {
-  //   default_path: "src/sidepanel/index.html",
-  // },
 });

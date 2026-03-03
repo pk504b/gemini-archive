@@ -1,5 +1,3 @@
-import "./App.css";
-
 export default function App() {
   return (
     <div className="bg-neutral-200 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200 p-8 pt-12 pb-10 w-xs space-y-6">
@@ -13,7 +11,7 @@ export default function App() {
         </div>
       </div>
       <button
-        className="w-full flex items-center justify-center rounded-full gap-4 py-2 cursor-pointer bg-gradient-to-tr from-[#4e8cff] via-[#9747ff] to-[#f481a5]"
+        className="w-full flex items-center justify-center rounded-full gap-4 py-2 cursor-pointer bg-linear-to-tr from-[#4e8cff] via-[#9747ff] to-[#f481a5]"
         onClick={() => {
           chrome.tabs.create({ url: "https://gemini.google.com" });
         }}
