@@ -18,13 +18,21 @@ function App() {
   const [showArchived, setShowArchived] = useState(false);
   const [sidebarTarget, setSidebarTarget] = useState<HTMLElement | null>(null);
 
-  // Load archived IDs
+  const [enabled, setEnabled] = useState(true);
+
+  // Load archived IDs and enabled state
   useEffect(() => {
-    chrome.storage.local.get(["archivedChatsData"], (result) => {
-      if (result && result.archivedChatsData) {
-        setArchivedChats(result.archivedChatsData as ArchivedChat[]);
-      }
-    });
+    chrome.storage.local.get(
+      ["archivedChatsData", "archivingEnabled"],
+      (result) => {
+        if (result && result.archivedChatsData) {
+          setArchivedChats(result.archivedChatsData as ArchivedChat[]);
+        }
+        if (result && result.archivingEnabled !== undefined) {
+          setEnabled(!!result.archivingEnabled);
+        }
+      },
+    );
 
     const handleStorageChange = (changes: {
       [key: string]: chrome.storage.StorageChange;
@@ -33,6 +41,9 @@ function App() {
         setArchivedChats(
           (changes.archivedChatsData.newValue as ArchivedChat[]) || [],
         );
+      }
+      if (changes.archivingEnabled) {
+        setEnabled(!!(changes.archivingEnabled.newValue ?? true));
       }
     };
     chrome.storage.onChanged.addListener(handleStorageChange);
@@ -47,6 +58,27 @@ function App() {
       if (timeoutId) return;
 
       timeoutId = window.setTimeout(() => {
+        if (!enabled) {
+          // 0. Cleanup if disabled
+          document
+            .querySelectorAll(".archiveBtn-wrapper")
+            .forEach((el) => el.remove());
+          document
+            .querySelectorAll(".conversation-items-container")
+            .forEach((conv) => {
+              (conv as HTMLElement).style.display = "";
+            });
+          const archivedWrapper = document.getElementById(
+            "archived-section-wrapper",
+          );
+          if (archivedWrapper) {
+            archivedWrapper.style.display = "none";
+          }
+          setTargets([]);
+          timeoutId = null;
+          return;
+        }
+
         // 1. Inject Archive button into context menus
         const menus = document.querySelector(".mat-mdc-menu-content");
         const newItems: {
@@ -110,23 +142,23 @@ function App() {
         });
 
         // 3. Find sidebar to inject "Archived" section
-        if (!sidebarTarget) {
+        let archivedWrapper = document.getElementById(
+          "archived-section-wrapper",
+        );
+        if (!sidebarTarget && !archivedWrapper) {
           const conversationsList =
             document.querySelector("conversations-list");
           if (conversationsList) {
-            let archivedWrapper = document.getElementById(
-              "archived-section-wrapper",
+            archivedWrapper = document.createElement("div");
+            archivedWrapper.id = "archived-section-wrapper";
+            conversationsList.parentNode?.insertBefore(
+              archivedWrapper,
+              conversationsList.nextSibling,
             );
-            if (!archivedWrapper) {
-              archivedWrapper = document.createElement("div");
-              archivedWrapper.id = "archived-section-wrapper";
-              conversationsList.parentNode?.insertBefore(
-                archivedWrapper,
-                conversationsList.nextSibling,
-              );
-            }
             setSidebarTarget(archivedWrapper);
           }
+        } else if (archivedWrapper) {
+          archivedWrapper.style.display = "";
         }
 
         timeoutId = null;
@@ -141,7 +173,7 @@ function App() {
       observer.disconnect();
       if (timeoutId) window.clearTimeout(timeoutId);
     };
-  }, [archivedChats, sidebarTarget]);
+  }, [archivedChats, sidebarTarget, enabled]);
 
   const handleArchive = (chat: ArchivedChat) => {
     const updated = [...archivedChats, chat];
@@ -159,28 +191,32 @@ function App() {
 
   return (
     <>
-      {/* Injected Archive buttons in menus */}
-      {targets.map((target) =>
-        createPortal(
-          <ArchiveButton
-            key={target.id}
-            onAction={() => handleArchive(target.chat)}
-          />,
-          target.element,
-        ),
-      )}
+      {enabled && (
+        <>
+          {/* Injected Archive buttons in menus */}
+          {targets.map((target) =>
+            createPortal(
+              <ArchiveButton
+                key={target.id}
+                onAction={() => handleArchive(target.chat)}
+              />,
+              target.element,
+            ),
+          )}
 
-      {/* Archived section in sidebar */}
-      {sidebarTarget &&
-        createPortal(
-          <ArchiveSection
-            archivedChats={archivedChats}
-            handleUnarchive={handleUnarchive}
-            showArchived={showArchived}
-            setShowArchived={setShowArchived}
-          />,
-          sidebarTarget,
-        )}
+          {/* Archived section in sidebar */}
+          {sidebarTarget &&
+            createPortal(
+              <ArchiveSection
+                archivedChats={archivedChats}
+                handleUnarchive={handleUnarchive}
+                showArchived={showArchived}
+                setShowArchived={setShowArchived}
+              />,
+              sidebarTarget,
+            )}
+        </>
+      )}
     </>
   );
 }
