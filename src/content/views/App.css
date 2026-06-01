@@ -1,4 +1,3 @@
-
 .popup-container {
   position: fixed;
   right: 0;
@@ -59,26 +58,37 @@
   all: unset;
 }
 
-.archiveBtn-wrapper {
-  all: unset;
-}
-
-.archiveBtn-wrapper svg {
-  width: 19px !important;
-  height: 19px !important;
-}
-
 /* Archived Section Sidebar Styles */
 .archived-section {
-  margin: 10px 4px 10px 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 10px;
-  font-family: "Google Sans", Roboto, Arial, sans-serif;
-  color: #d0d0d0;
+  margin-bottom: 20px;
 }
 
-.archived-section>button span {
-  font-weight: 600;
+.archived-section > button {
+  width: 100%;
+  padding-left: 15px;
+  opacity: 0.6;
+  background: none;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.archived-section .toggle-icon {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.archived-section > button:hover .toggle-icon {
+  display: flex;
+}
+
+.archived-section .toggle-icon svg {
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .archived-toggle {
@@ -96,43 +106,28 @@
   transition: background 0.2s;
 }
 
-.archived-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.archived-toggle .arrow {
-  margin-left: auto;
-  transition: transform 0.2s;
-  opacity: 0.5;
-}
-
-.archived-toggle .arrow.up {
+.toggle-icon.up {
   transform: rotate(90deg);
 }
 
 .archived-list {
-  margin-top: 8px;
-  max-height: 300px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-left: 4px;
+  margin: 4px 6px;
 }
 
 .archived-item {
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  letter-spacing: 0.3px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 8px 6px 12px;
+  padding: 4px 8px;
   border-radius: 50px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
   transition: background 0.2s;
 }
 
 .archived-item:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .chat-name {
@@ -152,12 +147,12 @@
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
+  transform: rotate(-90deg);
+  visibility: hidden;
 }
 
-.unarchive-btn svg {
-  color: #d0d0d0;
-  width: 18px !important;
-  height: 18px !important;
+.archived-item:hover .unarchive-btn {
+  visibility: visible;
 }
 
 .unarchive-btn:hover {
@@ -165,9 +160,10 @@
 }
 
 .empty-msg {
-  font-weight: 500;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
   padding: 0 8px;
   font-size: 12px;
   color: #9aa0a6;
+  opacity: 0.5;
   font-style: italic;
 }

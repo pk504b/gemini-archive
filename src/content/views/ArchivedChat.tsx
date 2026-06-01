@@ -7,11 +7,9 @@ export default function ArchivedChat({
   chat: any;
   handleUnarchive: (id: string) => void;
 }) {
+  console.log(chat);
   return (
-    <div
-      key={chat.id}
-      className="archived-item conversation-items-container ng-tns-c3578707374-6 side-nav-opened ng-star-inserted"
-    >
+    <div key={chat.id} className="archived-item">
       <span
         className="chat-name mat-ripple mat-mdc-tooltip-trigger conversation ng-tns-c3578707374-6 ng-trigger ng-trigger-conversationListRevealAnimation mat-mdc-tooltip-disabled"
         title={chat.name}

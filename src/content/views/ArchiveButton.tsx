@@ -12,30 +12,35 @@ export default function ArchiveButton({ onAction }: Props) {
 
   return (
     <button
-      onClick={handleClick}
-      //   style={{ width: "100%" }}
-      className="mat-mdc-menu-item mat-focus-indicator ng-star-inserted bg-red-100"
+      data-test-id="rename-button"
+      className="mat-mdc-menu-item mat-focus-indicator ng-tns-c1968356930-8 lm-menu-item-theme ng-star-inserted"
       role="menuitem"
       tabIndex={0}
       aria-disabled={false}
+      onClick={handleClick}
     >
-      <svg
-        className="mat-icon notranslate gds-icon-l google-symbols mat-ligature-font mat-icon-no-color"
-        aria-hidden="true"
-        data-mat-icon-type="font"
-        data-mat-icon-name="archive"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="m20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27M6.24 5h11.52l.81.97H5.44zM5 19V8h14v11zm8.45-9h-2.9v3H8l4 4l4-4h-2.55z"
-        />
-      </svg>
       <span className="mat-mdc-menu-item-text">
-        <span className="gds-body-m"> Archive </span>
+        <span
+          className="mat-icon notranslate lm-icon-m lumi-symbols mat-ligature-font mat-icon-no-color ng-star-inserted"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 14h4a1 1 0 0 0 0-2h-4a1 1 0 0 0 0 2m9-11H5a3 3 0 0 0-3 3v3a1 1 0 0 0 1 1h1v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8h1a1 1 0 0 0 1-1V6a3 3 0 0 0-3-3m-1 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8h12Zm2-10H4V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1Z"
+            ></path>
+          </svg>
+        </span>
+        <span className="gds-body-m gem-menu-item-label">Archive</span>
       </span>
       <div className="mat-ripple mat-mdc-menu-ripple"></div>
     </button>

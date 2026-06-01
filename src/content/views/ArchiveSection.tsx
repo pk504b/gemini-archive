@@ -12,50 +12,94 @@ export default function ArchiveSection({
   setShowArchived: (showArchived: boolean) => void;
 }) {
   return (
+    // <div className="archived-section">
+    //   <button
+    //     className="archived-toggle"
+    //     onClick={() => setShowArchived(!showArchived)}
+    //     style={{
+    //       backgroundColor: showArchived
+    //         ? "rgba(255, 255, 255, 0.05)"
+    //         : "transparent",
+    //     }}
+    //   >
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       width="1em"
+    //       height="1em"
+    //       viewBox="0 0 24 24"
+    //       className="gem-nav-list-item-icon ng-star-inserted"
+    //     >
+    //       <path
+    //         fill="currentColor"
+    //         d="M10 14h4a1 1 0 0 0 0-2h-4a1 1 0 0 0 0 2m9-11H5a3 3 0 0 0-3 3v3a1 1 0 0 0 1 1h1v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8h1a1 1 0 0 0 1-1V6a3 3 0 0 0-3-3m-1 15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8h12Zm2-10H4V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1Z"
+    //       ></path>
+    //     </svg>
+    //     <span style={{ flex: 1, textAlign: "left" }}>
+    //       Archived Chats ({archivedChats.length})
+    //     </span>
+    //     <span
+    //       className={`arrow ${showArchived ? "up" : "down"}`}
+    //       style={{ marginLeft: "8px" }}
+    //     >
+    //       <svg
+    //         xmlns="http://www.w3.org/2000/svg"
+    //         width="1em"
+    //         height="1em"
+    //         viewBox="0 0 24 24"
+    //       >
+    //         <path
+    //           fill="currentColor"
+    //           d="m14.83 11.29l-4.24-4.24a1 1 0 0 0-1.42 0a1 1 0 0 0 0 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41a1 1 0 0 0 .71.29a1 1 0 0 0 .71-.29l4.24-4.24a1 1 0 0 0 0-1.42"
+    //         ></path>
+    //       </svg>
+    //     </span>
+    //   </button>
+
+    //   {showArchived && (
+    //     <div className="archived-list">
+    //       {archivedChats.length === 0 ? (
+    //         <div className="empty-msg">No archived chats</div>
+    //       ) : (
+    //         archivedChats.map((chat) => (
+    //           <ArchivedChat
+    //             key={chat.id}
+    //             chat={chat}
+    //             handleUnarchive={handleUnarchive}
+    //           />
+    //         ))
+    //       )}
+    //     </div>
+    //   )}
+    // </div>
+
     <div className="archived-section">
       <button
-        className="archived-toggle"
+        data-test-id=""
+        className="expandable-section-header"
+        aria-expanded="false"
+        aria-controls="sidenav-section-content-chats"
+        aria-label="Toggle Archived Chats"
         onClick={() => setShowArchived(!showArchived)}
-        style={{
-          backgroundColor: showArchived
-            ? "rgba(255, 255, 255, 0.05)"
-            : "transparent",
-        }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27M6.24 5h11.52l.81.97H5.44zM5 19V8h14v11zm8.45-9h-2.9v3H8l4 4l4-4h-2.55z" />
-        </svg>
-        <span style={{ flex: 1, textAlign: "left" }}>
-          Archived Chats ({archivedChats.length})
-        </span>
-        <span
-          className={`arrow ${showArchived ? "up" : "down"}`}
-          style={{ marginLeft: "8px" }}
-        >
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d="m7 10l5 5l5-5z" />
-          </svg> */}
+        <span className="expandable-section-title gds-body-s">Archived</span>
+        <span className={`toggle-icon ${showArchived ? "up" : "down"}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
+            width="1em"
+            height="1em"
             viewBox="0 0 24 24"
+            className="mat-icon notranslate lm-icon-s mat-icon-no-color ng-star-inserted lumi-symbols mat-ligature-font"
           >
             <path
               fill="currentColor"
-              d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42"
-            />
+              d="m14.83 11.29l-4.24-4.24a1 1 0 0 0-1.42 0a1 1 0 0 0 0 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41a1 1 0 0 0 .71.29a1 1 0 0 0 .71-.29l4.24-4.24a1 1 0 0 0 0-1.42"
+            ></path>
           </svg>
         </span>
       </button>
 
       {showArchived && (
-        <div className="archived-list">
+        <div className="archived-list expandable-section-content">
           {archivedChats.length === 0 ? (
             <div className="empty-msg">No archived chats</div>
           ) : (

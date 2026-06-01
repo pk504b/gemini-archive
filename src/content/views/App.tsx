@@ -97,10 +97,10 @@ function App() {
             'button[data-test-id="actions-menu-button"][aria-expanded="true"]',
           );
           const chatContainer = activeMenuButton?.closest(
-            ".conversation-items-container",
+            '[data-test-id="conversation"]',
           );
           const chatLink = chatContainer?.querySelector(
-            'a[data-test-id="conversation"]',
+            "a",
           ) as HTMLAnchorElement;
 
           const chatId = chatLink?.href.split("/").pop() || "unknown";
@@ -127,12 +127,10 @@ function App() {
         // 2. Hide archived chats in the main list
         const archivedIds = archivedChats.map((c) => c.id);
         const conversations = document.querySelectorAll(
-          ".conversation-items-container",
+          "conversations-list gem-nav-list-item",
         );
         conversations.forEach((conv) => {
-          const link = conv.querySelector(
-            'a[data-test-id="conversation"]',
-          ) as HTMLAnchorElement;
+          const link = conv.querySelector("a") as HTMLAnchorElement;
           const id = link?.href.split("/").pop();
           if (id && archivedIds.includes(id)) {
             (conv as HTMLElement).style.display = "none";
@@ -147,7 +145,7 @@ function App() {
         );
         if (!sidebarTarget && !archivedWrapper) {
           const conversationsList =
-            document.querySelector("conversations-list");
+            document.querySelector("expandable-section");
           if (conversationsList) {
             archivedWrapper = document.createElement("div");
             archivedWrapper.id = "archived-section-wrapper";
