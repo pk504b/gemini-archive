@@ -8,13 +8,13 @@ export default defineManifest({
     "Archive and declutter your Google Gemini conversations without deleting them permanently.",
   version: pkg.version,
   icons: {
-    "16": "public/icon16.png",
-    "48": "public/icon48.png",
-    "128": "public/icon128.png",
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
   },
   action: {
     default_icon: {
-      48: "public/icon48.png",
+      48: "icons/icon48.png",
     },
     default_popup: "src/popup/index.html",
   },
